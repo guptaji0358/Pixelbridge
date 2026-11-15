@@ -72,7 +72,6 @@ add_custom_command(
     OUTPUT "${QRS_RUST_DLL}" "${QRS_RUST_IMPLIB}"
     COMMAND ${CMAKE_COMMAND} -E env ${_cargo_env}
             "${CARGO_EXECUTABLE}" build --release --offline --manifest-path "${QRS_RUST_DIR}/Cargo.toml"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${QRS_RUST_DLL}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/qrs_encode.dll"
     DEPENDS ${QRS_RUST_SOURCES} "${QRS_RUST_DIR}/Cargo.toml"
     COMMENT "Building Rust encoder (qrs_encode.dll)"
     VERBATIM)
@@ -97,8 +96,14 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 # ------------------------------------------------------------ executables ----
+# qrs_copy_runtime_dlls() / qrs_deploy_qt_plugins() put the DLLs each program
+# needs (Rust encoder, Qt, MinGW runtime, Qt plugins) next to it after every build.
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(RuntimeDlls)
+
 add_executable(qrs_cli ${QRS_MAIN}/qrs_cli.cpp)
 target_link_libraries(qrs_cli PRIVATE qrs_core)
+qrs_copy_runtime_dlls(qrs_cli)
 
 if(QRS_BUILD_GUI AND EXISTS "${QRS_ROOT}/gui.cmake")
     include("${QRS_ROOT}/gui.cmake")

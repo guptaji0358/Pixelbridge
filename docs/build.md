@@ -12,7 +12,18 @@ build.bat clean      delete build\ and dist\
 ```
 
 `dist\QRStudio.exe` runs on a machine without Qt, MinGW, Rust or Python installed.
-To run `build\bin\QRStudio.exe` directly, the Qt and MinGW `bin` folders must be on `PATH` (the test scripts do this themselves).
+`build\bin\` is self-contained too: CMake copies the runtime DLLs next to every executable after each build (see below), so `build\bin\QRStudio.exe`, `qrs_cli.exe` and the tests run with no tool folders on `PATH`.
+
+### Runtime DLLs copied by CMake
+
+`cmake/RuntimeDlls.cmake` defines two functions, called from the root `CMakeLists.txt`, `gui/gui.cmake` and `tests/cpp/CMakeLists.txt`:
+
+| Function | Copies | Used for |
+|---|---|---|
+| `qrs_copy_runtime_dlls(<target>)` | `qrs_encode.dll` and the Qt DLLs the target links (via `$<TARGET_RUNTIME_DLLS>`), plus `libgcc_s_seh-1.dll`, `libstdc++-6.dll`, `libwinpthread-1.dll` from the compiler's folder | `qrs_cli`, `QRStudio`, every test |
+| `qrs_deploy_qt_plugins(<target>)` | Qt plugins (`platforms\`, `styles\`, `imageformats\`, …) through `windeployqt` | `QRStudio` |
+
+`tst_gui` additionally gets `platforms\qoffscreen.dll`, because ctest runs it with `QT_QPA_PLATFORM=offscreen` and Qt looks for plugins beside the DLLs it loaded. To add a DLL for a new executable, call `qrs_copy_runtime_dlls(<target>)` after defining it.
 
 ## Dependency inventory
 
@@ -84,6 +95,7 @@ The folder name `gui` appears once, as the default of `QRS_SOURCE_DIR` in the ro
 | `[check] MISSING ...` | A tool is not where `build.bat` expects. Set the matching `QRS_*` variable. |
 | Link errors mentioning `__imp_` or `std::` symbols from Qt | The C++ code was compiled by MSYS2's GCC instead of Qt's. Run `build.bat clean` and build through `build.bat`, not a bare `cmake`. |
 | Rust step fails to link | The Rust linker must be the `gcc.exe` beside `cargo.exe`; CMake sets `CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER` for this. Check that MSYS2's `gcc` still exists there. |
-| `QRStudio.exe` from `build\bin` reports a missing DLL | Use `dist\QRStudio.exe`, or add the Qt and MinGW `bin` folders to `PATH`. |
+| `QRStudio.exe` from `build\bin` reports a missing DLL | Rebuild with `build.bat build`; the post-build step copies the DLLs. If a new library was linked, check that `qrs_copy_runtime_dlls` is called for that target. |
+| A test fails with "could not find the Qt platform plugin" | The plugin is missing from `build\bin\platforms`. Offscreen tests need `qoffscreen.dll` (copied for `tst_gui`); see above. |
 | A newly added source file is not compiled | Add it to `gui/gui.cmake` (app) or the root `CMakeLists.txt` (core). Source lists are explicit. |
 | `windeployqt` warns about `dxcompiler.dll` | Harmless; Direct3D 12 is not used. |

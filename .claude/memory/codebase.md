@@ -41,7 +41,11 @@ before session 1.
   linking against Qt. Always go through `build.bat`.
 - The Rust DLL must be linked by MSYS2's gcc (CMake sets
   `CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER`). That is why Rust is a DLL and not a static lib.
-- Running anything from `build\bin` needs the Qt and MinGW `bin` dirs on PATH; `dist\` does not.
+- `cmake/RuntimeDlls.cmake` copies runtime DLLs (Rust DLL, Qt, MinGW runtime) next to each
+  executable after every build, and `windeployqt` deploys Qt plugins for QRStudio, so
+  `build\bin` and `dist\` both run without Qt/MinGW on PATH. New executables must call
+  `qrs_copy_runtime_dlls(<target>)`. Once Qt DLLs live in `build\bin`, Qt looks for plugins in
+  `build\bin\platforms`, so `tst_gui` also gets `qoffscreen.dll` copied there.
 - `ctest` runs GUI tests with `QT_QPA_PLATFORM=offscreen` (set in `build.bat`). Screenshots need
   the real platform: run `build\bin\tst_gui.exe` directly with `QRS_SCREENSHOT_DIR` set.
 - `QStandardPaths::setTestModeEnabled(true)` in `tst_gui` keeps tests away from the real settings.

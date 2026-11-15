@@ -29,3 +29,7 @@ endif()
 add_executable(QRStudio WIN32 ${QRS_MAIN}/main.cpp)
 target_link_libraries(QRStudio PRIVATE qrs_app)
 target_compile_definitions(QRStudio PRIVATE QRS_VERSION="${PROJECT_VERSION}")
+
+# Make build/bin self-contained: DLLs plus Qt plugins (platforms/, styles/, ...).
+qrs_copy_runtime_dlls(QRStudio)
+qrs_deploy_qt_plugins(QRStudio)

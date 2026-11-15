@@ -1,0 +1,7 @@
+# Python is used for tests and developer tooling only; the application itself
+# does not need Python at run time.
+#
+# Versions below are the ones verified on the development machine (2026-11).
+opencv-python-headless>=4.8   # independent QR encoder/decoder for interop tests and benchmarks
+numpy>=1.26
+pytest>=8

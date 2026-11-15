@@ -1,0 +1,6 @@
+build/
+dist/
+build.configure.log
+__pycache__/
+.pytest_cache/
+*.pyc

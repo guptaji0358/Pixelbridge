@@ -1,4 +1,4 @@
-//! QR Studio encoder: QR Code Model 2, versions 1-40, ECC levels L/M/Q/H.
+//! Pixelbridge encoder: QR Code Model 2, versions 1-40, ECC levels L/M/Q/H.
 //!
 //! Exposes a small C ABI (see `gui/include/qrs/qrs_encode.h`). The caller owns
 //! every buffer, so no allocation ever crosses the DLL boundary.

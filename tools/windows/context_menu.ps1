@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Adds or removes the QR Studio entries in the Windows File Explorer right-click menu.
+    Adds or removes the Pixelbridge entries in the Windows File Explorer right-click menu.
 
 .DESCRIPTION
     Per-user only: everything is written under
@@ -10,12 +10,12 @@
     The entries are ADDED next to the existing ones. Default programs, "Open with"
     lists and the menus of other file types are not modified.
 
-      Image files (.png .jpg .jpeg .bmp .gif .webp .tif .tiff) get a "QR Studio" submenu:
+      Image files (.png .jpg .jpeg .bmp .gif .webp .tif .tiff) get a "Pixelbridge" submenu:
           Open with QR Scanner
           Copy file path
           Open with default application
       Text files (.txt) get:
-          QR Studio > Generate QR from text
+          Pixelbridge > Generate QR from text
 
     On Windows 11 these classic entries appear under "Show more options" (Shift+F10).
 
@@ -25,13 +25,13 @@
     uninstall remove the keys (only ones named QRStudio)
 
 .PARAMETER ExePath
-    Full path to QRStudio.exe. Required for install.
+    Full path to Pixelbridge.exe. Required for install.
 
 .PARAMETER DryRun
     Print every registry change without performing it.
 
 .EXAMPLE
-    powershell -ExecutionPolicy Bypass -File context_menu.ps1 -Action install -ExePath "D:\Apps\QRStudio\QRStudio.exe"
+    powershell -ExecutionPolicy Bypass -File context_menu.ps1 -Action install -ExePath "D:\Apps\Pixelbridge\Pixelbridge.exe"
 #>
 [CmdletBinding()]
 param(
@@ -64,14 +64,14 @@ function Add-SubCommand([string]$verbKey, [string]$id, [string]$label, [string]$
 }
 
 function Install-Menu {
-    if (-not $ExePath) { throw 'Install needs -ExePath "<full path to QRStudio.exe>".' }
+    if (-not $ExePath) { throw 'Install needs -ExePath "<full path to Pixelbridge.exe>".' }
     $exe = (Resolve-Path -LiteralPath $ExePath).Path
-    if ([IO.Path]::GetFileName($exe) -ne 'QRStudio.exe') { throw "Not QRStudio.exe: $exe" }
+    if ([IO.Path]::GetFileName($exe) -ne 'Pixelbridge.exe') { throw "Not Pixelbridge.exe: $exe" }
     $q = '"' + $exe + '"'
 
     foreach ($ext in $ImageExts) {
         $key = Get-VerbKey $ext
-        Set-Value $key 'MUIVerb' 'QR Studio'
+        Set-Value $key 'MUIVerb' 'Pixelbridge'
         Set-Value $key 'Icon' $exe
         Set-Value $key 'SubCommands' ''
         Add-SubCommand $key '01scan'    'Open with QR Scanner'          "$q --scan `"%1`""
@@ -80,7 +80,7 @@ function Install-Menu {
     }
     foreach ($ext in $TextExts) {
         $key = Get-VerbKey $ext
-        Set-Value $key 'MUIVerb' 'QR Studio'
+        Set-Value $key 'MUIVerb' 'Pixelbridge'
         Set-Value $key 'Icon' $exe
         Set-Value $key 'SubCommands' ''
         Add-SubCommand $key '01generate' 'Generate QR from text' "$q --generate-from-file `"%1`""

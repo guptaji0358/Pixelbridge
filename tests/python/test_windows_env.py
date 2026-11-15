@@ -1,4 +1,4 @@
-"""Actual-Windows tests: real QRStudio.exe process, real clipboard, real registry (read-only).
+"""Actual-Windows tests: real Pixelbridge.exe process, real clipboard, real registry (read-only).
 
 Nothing here installs the right-click menu; the install path is exercised only
 with -DryRun, and the test asserts the registry is unchanged afterwards.
@@ -18,7 +18,7 @@ from conftest import MINGW_DIR, QT_DIR, ROOT
 
 pytestmark = pytest.mark.skipif(sys.platform != "win32", reason="Windows only")
 
-APP = ROOT / "build" / "bin" / "QRStudio.exe"
+APP = ROOT / "build" / "bin" / "Pixelbridge.exe"
 SCRIPT = ROOT / "tools" / "windows" / "context_menu.ps1"
 VERB_KEY = r"Software\Classes\SystemFileAssociations\.png\shell\QRStudio"
 
@@ -51,7 +51,7 @@ def app() -> Path:
 
 
 def test_copy_path_survives_process_exit(app, tmp_path):
-    """Regression: the path vanished from the clipboard as soon as QRStudio.exe exited."""
+    """Regression: the path vanished from the clipboard as soon as Pixelbridge.exe exited."""
     target = tmp_path / "some image.png"
     target.write_bytes(b"x")
     _powershell("-Command", "Set-Clipboard -Value 'stale'")
@@ -94,6 +94,6 @@ def test_context_menu_install_refuses_other_executables():
     cli = ROOT / "build" / "bin" / "qrs_cli.exe"
     proc = _powershell("-File", str(SCRIPT), "-Action", "install", "-ExePath", str(cli), "-DryRun")
     assert proc.returncode != 0
-    assert "Not QRStudio.exe" in proc.stderr
+    assert "Not Pixelbridge.exe" in proc.stderr
     missing = _powershell("-File", str(SCRIPT), "-Action", "install", "-DryRun")
     assert missing.returncode != 0

@@ -1,4 +1,4 @@
-/* QR Studio - C ABI of the Rust encoder (rust/qrs_encode, built as qrs_encode.dll).
+/* Pixelbridge - C ABI of the Rust encoder (rust/qrs_encode, built as qrs_encode.dll).
  * Keep in sync with rust/qrs_encode/src/lib.rs. */
 #ifndef QRS_ENCODE_H
 #define QRS_ENCODE_H

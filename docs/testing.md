@@ -39,7 +39,7 @@ Set `QRS_SCREENSHOT_DIR` (and optionally `QRS_TEST_THEME=dark`) to save a pictur
 
 `python main.py fixtures build\fixtures` then `python main.py benchmark build\fixtures --verbose`:
 
-| Image | QR Studio | OpenCV classic | OpenCV ArUco |
+| Image | Pixelbridge | OpenCV classic | OpenCV ArUco |
 |---|---|---|---|
 | clean | 1 | 0 | 1 |
 | small (2 px modules) | 1 | 0 | 1 |

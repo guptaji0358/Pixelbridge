@@ -1,7 +1,7 @@
-"""QR Studio developer tooling (local automation - no network, no AI calls).
+"""Pixelbridge developer tooling (local automation - no network, no AI calls).
 
     python main.py env                 dependency inventory as JSON (tool, version, path)
-    python main.py benchmark DIR       compare QR Studio's decoder with OpenCV on a folder of images
+    python main.py benchmark DIR       compare Pixelbridge's decoder with OpenCV on a folder of images
     python main.py fixtures DIR        write a set of representative test images into DIR
 
 The desktop application is the C++ program built by build.bat; this script is
@@ -124,15 +124,15 @@ def cmd_benchmark(args: argparse.Namespace) -> int:
             cv_texts[label] = texts
         rows.append({
             "file": str(path.relative_to(args.folder)),
-            "qrstudio": {"codes": len(our_texts), "ms": ours["elapsed_ms"],
+            "pixelbridge": {"codes": len(our_texts), "ms": ours["elapsed_ms"],
                          "pass": ",".join(sorted({c["strategy"] for c in ours["codes"] if c.get("decoded")}))},
             **{k: {"codes": len(v), "ms": cv_ms[k], "agrees": v == our_texts} for k, v in cv_texts.items()},
         })
 
     summary = {
         "images": len(rows),
-        "decoded_by": {k: sum(1 for r in rows if r[k]["codes"]) for k in ("qrstudio", "opencv", "opencv_aruco")},
-        "total_ms": {k: round(sum(r[k]["ms"] for r in rows), 1) for k in ("qrstudio", "opencv", "opencv_aruco")},
+        "decoded_by": {k: sum(1 for r in rows if r[k]["codes"]) for k in ("pixelbridge", "opencv", "opencv_aruco")},
+        "total_ms": {k: round(sum(r[k]["ms"] for r in rows), 1) for k in ("pixelbridge", "opencv", "opencv_aruco")},
         "note": "qrstudio ms is decode time inside the process; OpenCV ms excludes image loading as well.",
     }
     print(json.dumps({"summary": summary, "rows": rows} if args.verbose else summary, indent=2))

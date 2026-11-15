@@ -1,11 +1,11 @@
 # Architecture
 
-QR Studio is a local, offline Windows desktop application. Nothing in it opens a network connection.
+Pixelbridge is a local, offline Windows desktop application. Nothing in it opens a network connection.
 
 ## Layers
 
 ```
- gui/main/main.cpp ── QRStudio.exe          gui/main/qrs_cli.cpp ── qrs_cli.exe
+ gui/main/main.cpp ── Pixelbridge.exe          gui/main/qrs_cli.cpp ── qrs_cli.exe
         │                                             │
  gui/src/app/  (C++, Qt Widgets)  pages, theme        │
         └──────────────┬──────────────────────────────┘
@@ -48,7 +48,7 @@ QR Studio is a local, offline Windows desktop application. Nothing in it opens a
 - **Move** asks first and never overwrites; a clashing name gets " (2)", " (3)", …
 - **CSV**: cells starting with `=`, `+`, `-` or `@` are prefixed with `'` so a spreadsheet does not run decoded QR text as a formula.
 - **Registry**: the application never writes to the registry. Only `tools/windows/context_menu.ps1` does, per user, after an explicit confirmation. See [context-menu.md](context-menu.md).
-- **Settings** are an INI file in `%LOCALAPPDATA%\QRStudio`.
+- **Settings** are an INI file in `%LOCALAPPDATA%\Pixelbridge`.
 
 ## Decisions
 
@@ -67,5 +67,5 @@ QR Studio is a local, offline Windows desktop application. Nothing in it opens a
 - Kanji-mode and ECI output are not produced by the encoder; all text is encoded as UTF-8 bytes (numeric and alphanumeric modes are used when the text allows).
 - One mode per symbol: mixed text is not split into segments, so some codes are slightly larger than the theoretical minimum.
 - No camera/webcam scanning.
-- QRStudio.exe has no embedded icon resource yet (the window icon is drawn in code).
+- Pixelbridge.exe has no embedded icon resource yet (the window icon is drawn in code).
 - Spin-box text sits close to the left edge (cosmetic).

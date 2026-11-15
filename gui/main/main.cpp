@@ -1,13 +1,13 @@
-// QR Studio desktop application entry point.
+// Pixelbridge desktop application entry point.
 //
-//   QRStudio.exe                          open the main window
-//   QRStudio.exe <image>                  same as --scan <image>
-//   QRStudio.exe --scan <image>           open the Scanner with the image
-//   QRStudio.exe --generate [text]        open the Generator (optionally pre-filled)
-//   QRStudio.exe --generate-from-file <f> open the Generator with the text of a file
-//   QRStudio.exe --copy-path <file>       copy the file's path to the clipboard and exit
-//   QRStudio.exe --open-default <file>    open the file with its default application and exit
-//   QRStudio.exe --page <1..5>            start on a given page
+//   Pixelbridge.exe                          open the main window
+//   Pixelbridge.exe <image>                  same as --scan <image>
+//   Pixelbridge.exe --scan <image>           open the Scanner with the image
+//   Pixelbridge.exe --generate [text]        open the Generator (optionally pre-filled)
+//   Pixelbridge.exe --generate-from-file <f> open the Generator with the text of a file
+//   Pixelbridge.exe --copy-path <file>       copy the file's path to the clipboard and exit
+//   Pixelbridge.exe --open-default <file>    open the file with its default application and exit
+//   Pixelbridge.exe --page <1..5>            start on a given page
 //
 // The last four --options back the File Explorer right-click entries.
 
@@ -48,13 +48,13 @@ static QString readTextFile(const QString &path, QString *error)
 int main(int argc, char **argv)
 {
     QApplication application(argc, argv);
-    QApplication::setApplicationName(QStringLiteral("QRStudio"));
-    QApplication::setApplicationDisplayName(QStringLiteral("QR Studio"));
+    QApplication::setApplicationName(QStringLiteral("Pixelbridge"));
+    QApplication::setApplicationDisplayName(QStringLiteral("Pixelbridge"));
     QApplication::setApplicationVersion(QStringLiteral(QRS_VERSION));
     QApplication::setWindowIcon(app::MainWindow::appIcon());
 
     QCommandLineParser parser;
-    parser.setApplicationDescription(QStringLiteral("QR Studio - QR scanner and generator"));
+    parser.setApplicationDescription(QStringLiteral("Pixelbridge - QR scanner and generator"));
     parser.addHelpOption();
     parser.addVersionOption();
     const QCommandLineOption scanOpt(QStringLiteral("scan"), QStringLiteral("Scan an image."), QStringLiteral("image"));
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
         if (error.isEmpty())
             window.generateFromText(text);
         else
-            QMessageBox::warning(&window, QStringLiteral("QR Studio"), error);
+            QMessageBox::warning(&window, QStringLiteral("Pixelbridge"), error);
     } else if (parser.isSet(genOpt)) {
         window.show();
         window.generateFromText(positional.join(u' '));

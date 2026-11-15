@@ -26,10 +26,10 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(qrs_app PRIVATE -Wall -Wextra)
 endif()
 
-add_executable(QRStudio WIN32 ${QRS_MAIN}/main.cpp)
-target_link_libraries(QRStudio PRIVATE qrs_app)
-target_compile_definitions(QRStudio PRIVATE QRS_VERSION="${PROJECT_VERSION}")
+add_executable(Pixelbridge WIN32 ${QRS_MAIN}/main.cpp)
+target_link_libraries(Pixelbridge PRIVATE qrs_app)
+target_compile_definitions(Pixelbridge PRIVATE QRS_VERSION="${PROJECT_VERSION}")
 
 # Make build/bin self-contained: DLLs plus Qt plugins (platforms/, styles/, ...).
-qrs_copy_runtime_dlls(QRStudio)
-qrs_deploy_qt_plugins(QRStudio)
+qrs_copy_runtime_dlls(Pixelbridge)
+qrs_deploy_qt_plugins(Pixelbridge)

@@ -26,7 +26,7 @@ bool openLink(QWidget *parent, const qrs::ContentInfo &info, bool confirm)
         QMessageBox box(parent);
         box.setIcon(info.warning.isEmpty() ? QMessageBox::Question : QMessageBox::Warning);
         box.setWindowTitle(QObject::tr("Open link?"));
-        box.setText(QObject::tr("This will open the following %1 outside QR Studio:").arg(info.label.toLower()));
+        box.setText(QObject::tr("This will open the following %1 outside Pixelbridge:").arg(info.label.toLower()));
         QString detail = info.openUrl.toDisplayString(QUrl::FullyEncoded);
         if (detail.size() > 400)
             detail = detail.left(400) + QStringLiteral("…");

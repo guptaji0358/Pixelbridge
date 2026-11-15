@@ -39,7 +39,7 @@ private slots:
     void roundTrip_data()
     {
         QTest::addColumn<QString>("text");
-        QTest::newRow("plain") << "Hello, QR Studio!";
+        QTest::newRow("plain") << "Hello, Pixelbridge!";
         QTest::newRow("url") << "https://example.com/path?q=1&r=two#frag";
         QTest::newRow("numeric") << "0123456789012345678901234567890";
         QTest::newRow("alphanumeric") << "HELLO WORLD $%*+-./:";

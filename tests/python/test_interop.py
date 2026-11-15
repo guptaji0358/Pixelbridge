@@ -1,4 +1,4 @@
-"""Cross-implementation tests: QR Studio (Rust encoder, C decoder) vs OpenCV."""
+"""Cross-implementation tests: Pixelbridge (Rust encoder, C decoder) vs OpenCV."""
 from __future__ import annotations
 
 import csv

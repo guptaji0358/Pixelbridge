@@ -36,7 +36,7 @@ SettingsPage::SettingsPage(Settings *settings, QWidget *parent) : QWidget(parent
     column->addWidget(buildAppearance());
     column->addWidget(buildGenerator());
     column->addWidget(buildIntegration());
-    auto *about = makeLabel(tr("QR Studio %1  ·  works fully offline  ·  settings file: %2")
+    auto *about = makeLabel(tr("Pixelbridge %1  ·  works fully offline  ·  settings file: %2")
                                 .arg(QCoreApplication::applicationVersion(),
                                      QDir::toNativeSeparators(Settings::filePath())),
                             "muted");
@@ -126,7 +126,7 @@ QWidget *SettingsPage::buildIntegration()
     QFrame *frame = makeCard(&card);
     card->addWidget(makeLabel(tr("FILE EXPLORER RIGHT-CLICK MENU"), "section"));
     auto *text = makeLabel(
-        tr("Adds a “QR Studio” submenu to the right-click menu of image files (Open with QR Scanner, "
+        tr("Adds a “Pixelbridge” submenu to the right-click menu of image files (Open with QR Scanner, "
            "Copy file path, Open with default application) and of .txt files (Generate QR from text).\n"
            "It is added for your user account only, next to the existing entries; default programs and "
            "other file types are not changed. On Windows 11 it appears under “Show more options”."));
@@ -211,8 +211,8 @@ void SettingsPage::changeIntegration(bool install)
     QMessageBox box(this);
     box.setIcon(QMessageBox::Question);
     box.setWindowTitle(install ? tr("Add to right-click menu") : tr("Remove from right-click menu"));
-    box.setText(install ? tr("Add QR Studio to the File Explorer right-click menu?")
-                        : tr("Remove QR Studio from the File Explorer right-click menu?"));
+    box.setText(install ? tr("Add Pixelbridge to the File Explorer right-click menu?")
+                        : tr("Remove Pixelbridge from the File Explorer right-click menu?"));
     box.setInformativeText(
         install ? tr("This writes registry keys for your user account only:\n\n"
                      "HKEY_CURRENT_USER\\Software\\Classes\\SystemFileAssociations\\<type>\\shell\\QRStudio\n\n"

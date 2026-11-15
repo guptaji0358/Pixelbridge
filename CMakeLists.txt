@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(QRStudio VERSION 0.1.0 LANGUAGES C CXX)
+project(Pixelbridge VERSION 0.1.0 LANGUAGES C CXX)
 
 # ---------------------------------------------------------------- layout ----
 # The native source tree lives in ONE directory, named here and nowhere else.

@@ -1,6 +1,6 @@
 @echo off
 rem ============================================================================
-rem  QR Studio build driver
+rem  Pixelbridge build driver
 rem
 rem    build.bat            configure + build            (same as: build.bat build)
 rem    build.bat check      validate the toolchain only
@@ -139,16 +139,16 @@ exit /b 0
 
 rem ----------------------------------------------------------------------------
 :deploy
-if not exist "%BUILD_DIR%\bin\QRStudio.exe" (
-    echo [deploy] QRStudio.exe has not been built
+if not exist "%BUILD_DIR%\bin\Pixelbridge.exe" (
+    echo [deploy] Pixelbridge.exe has not been built
     exit /b 1
 )
 if not exist "%DIST_DIR%" mkdir "%DIST_DIR%"
-copy /y "%BUILD_DIR%\bin\QRStudio.exe"   "%DIST_DIR%\" >nul
+copy /y "%BUILD_DIR%\bin\Pixelbridge.exe"   "%DIST_DIR%\" >nul
 copy /y "%BUILD_DIR%\bin\qrs_cli.exe"    "%DIST_DIR%\" >nul
 copy /y "%BUILD_DIR%\bin\qrs_encode.dll" "%DIST_DIR%\" >nul
 copy /y "%ROOT%\tools\windows\context_menu.ps1" "%DIST_DIR%\" >nul
-windeployqt --release --no-translations --no-system-d3d-compiler --no-opengl-sw --compiler-runtime "%DIST_DIR%\QRStudio.exe"
+windeployqt --release --no-translations --no-system-d3d-compiler --no-opengl-sw --compiler-runtime "%DIST_DIR%\Pixelbridge.exe"
 if errorlevel 1 ( echo [deploy] windeployqt FAILED & exit /b 1 )
 echo [deploy] OK - self-contained app in %DIST_DIR%
 exit /b 0

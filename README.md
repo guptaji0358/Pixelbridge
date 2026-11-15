@@ -1,8 +1,8 @@
-# QR Studio
+# Pixelbridge
 
 A Windows desktop app for scanning and generating QR codes. It works entirely offline.
 
-**Status (2026-11-15):** builds, all automated tests pass, self-contained package in `dist\`. The File Explorer right-click menu is installed for the current user and points at `dist\QRStudio.exe`.
+**Status (2026-11-15):** builds, all automated tests pass, self-contained package in `dist\`. The File Explorer right-click menu is installed for the current user and points at the old `dist\QRStudio.exe`, so it must be reinstalled for `Pixelbridge.exe`.
 
 ## What works
 
@@ -22,14 +22,14 @@ Reads PNG, JPG, BMP, GIF, WebP, TIFF, ICO, TGA and a few others (whatever the bu
 - The right-click menu is installed on the development machine and its commands were run, but it has not been clicked through in Explorer by a person. See [docs/context-menu.md](docs/context-menu.md).
 - No camera scanning.
 - No installer; `dist\` is a copy-anywhere folder.
-- QRStudio.exe has no icon resource.
+- Pixelbridge.exe has no icon resource.
 - Everything else that is untested is listed in [docs/testing.md](docs/testing.md#not-tested).
 
 ## Build and run
 
 ```bat
 build.bat all
-dist\QRStudio.exe
+dist\Pixelbridge.exe
 ```
 
 Requirements and their locations are in [docs/build.md](docs/build.md). Nothing needs to be installed on the development machine as it stands.
@@ -44,7 +44,7 @@ gui/
   include/qrs/        public headers
   src/core/           C decoder wrapper, C++ services
   src/app/            Qt Widgets pages
-  main/               main.cpp (QRStudio.exe), qrs_cli.cpp
+  main/               main.cpp (Pixelbridge.exe), qrs_cli.cpp
 rust/qrs_encode/      QR encoder (Rust, C ABI DLL)
 third_party/c/quirc/    QR decoder library (C, ISC licence)
 tools/windows/        context_menu.ps1

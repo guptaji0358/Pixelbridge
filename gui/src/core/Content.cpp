@@ -134,7 +134,7 @@ ContentInfo classify(const QString &text)
     } else {
         info.kind = ContentKind::Url;
         info.label = tr("Link (%1)").arg(scheme);
-        info.warning = tr("For safety, \"%1:\" links cannot be opened from QR Studio.").arg(scheme);
+        info.warning = tr("For safety, \"%1:\" links cannot be opened from Pixelbridge.").arg(scheme);
     }
     return info;
 }

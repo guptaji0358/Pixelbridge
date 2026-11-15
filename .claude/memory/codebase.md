@@ -1,11 +1,11 @@
-﻿# Codebase map and toolchain facts
+# Codebase map and toolchain facts
 
 ## Where things are
 
 | Path | Contents |
 |---|---|
 | `CMakeLists.txt` | All targets except the app; `QRS_SOURCE_DIR` (default `gui`) is the only place the source folder is named |
-| `gui/gui.cmake` | `qrs_app` library + `QRStudio` executable; explicit source list |
+| `gui/gui.cmake` | `qrs_app` library + `Pixelbridge` executable; explicit source list |
 | `gui/include/qrs/` | Public headers: `qrs_encode.h`, `qrs_decode.h` (C); `Generator.h`, `Scanner.h`, `Content.h`, `Files.h` (C++) |
 | `gui/src/core/` | `qrs_decode.c`, `qrs_preprocess.c/.h` (C); `Generator.cpp`, `Scanner.cpp`, `Content.cpp`, `Files.cpp` |
 | `gui/src/app/` | `MainWindow`, `ScannerPage`, `GeneratorPage` (+`GeneratorPageActions.cpp`), `FilesPage` (+`FilesPageActions.cpp`, `FileTableModel.cpp`), `BatchPage`, `SettingsPage`, `Theme`, `Widgets`, `Actions`, `AppSettings` |
@@ -21,11 +21,11 @@ before session 1.
 
 ## Language boundaries
 
-- Rust â†’ C++: `qrs_encode()` in `qrs_encode.dll`. Caller-owned buffer, one byte per module.
+- Rust → C++: `qrs_encode()` in `qrs_encode.dll`. Caller-owned buffer, one byte per module.
   Keep `gui/include/qrs/qrs_encode.h` in sync with `lib.rs` by hand; `QRS_ENCODE_ABI_VERSION`
   is checked by `tst_core`.
-- C â†’ C++: `qrs_decode_gray()`; `qrs_result` is ~9 KB each, allocated on the heap in `Scanner.cpp`.
-- C++ â†’ Python: only through `qrs_cli.exe` (JSON lines on stdout). Python is never embedded.
+- C → C++: `qrs_decode_gray()`; `qrs_result` is ~9 KB each, allocated on the heap in `Scanner.cpp`.
+- C++ → Python: only through `qrs_cli.exe` (JSON lines on stdout). Python is never embedded.
 
 ## Toolchain (verified)
 
@@ -42,7 +42,7 @@ before session 1.
 - The Rust DLL must be linked by MSYS2's gcc (CMake sets
   `CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER`). That is why Rust is a DLL and not a static lib.
 - `cmake/RuntimeDlls.cmake` copies runtime DLLs (Rust DLL, Qt, MinGW runtime) next to each
-  executable after every build, and `windeployqt` deploys Qt plugins for QRStudio, so
+  executable after every build, and `windeployqt` deploys Qt plugins for Pixelbridge, so
   `build\bin` and `dist\` both run without Qt/MinGW on PATH. New executables must call
   `qrs_copy_runtime_dlls(<target>)`. Once Qt DLLs live in `build\bin`, Qt looks for plugins in
   `build\bin\platforms`, so `tst_gui` also gets `qoffscreen.dll` copied there.

@@ -1,9 +1,9 @@
-﻿# Build, environment and packaging
+# Build, environment and packaging
 
 ## Quick start
 
 ```bat
-build.bat            configure + compile â†’ build\bin\QRStudio.exe
+build.bat            configure + compile → build\bin\Pixelbridge.exe
 build.bat test       compile, then run Rust, C++ and Python tests
 build.bat deploy     compile, then create a self-contained dist\ folder
 build.bat all        build + test + deploy
@@ -11,8 +11,8 @@ build.bat check      only verify the toolchain
 build.bat clean      delete build\ and dist\
 ```
 
-`dist\QRStudio.exe` runs on a machine without Qt, MinGW, Rust or Python installed.
-`build\bin\` is self-contained too: CMake copies the runtime DLLs next to every executable after each build (see below), so `build\bin\QRStudio.exe`, `qrs_cli.exe` and the tests run with no tool folders on `PATH`.
+`dist\Pixelbridge.exe` runs on a machine without Qt, MinGW, Rust or Python installed.
+`build\bin\` is self-contained too: CMake copies the runtime DLLs next to every executable after each build (see below), so `build\bin\Pixelbridge.exe`, `qrs_cli.exe` and the tests run with no tool folders on `PATH`.
 
 ### Runtime DLLs copied by CMake
 
@@ -20,8 +20,8 @@ build.bat clean      delete build\ and dist\
 
 | Function | Copies | Used for |
 |---|---|---|
-| `qrs_copy_runtime_dlls(<target>)` | `qrs_encode.dll` and the Qt DLLs the target links (via `$<TARGET_RUNTIME_DLLS>`), plus `libgcc_s_seh-1.dll`, `libstdc++-6.dll`, `libwinpthread-1.dll` from the compiler's folder | `qrs_cli`, `QRStudio`, every test |
-| `qrs_deploy_qt_plugins(<target>)` | Qt plugins (`platforms\`, `styles\`, `imageformats\`, â€¦) through `windeployqt` | `QRStudio` |
+| `qrs_copy_runtime_dlls(<target>)` | `qrs_encode.dll` and the Qt DLLs the target links (via `$<TARGET_RUNTIME_DLLS>`), plus `libgcc_s_seh-1.dll`, `libstdc++-6.dll`, `libwinpthread-1.dll` from the compiler's folder | `qrs_cli`, `Pixelbridge`, every test |
+| `qrs_deploy_qt_plugins(<target>)` | Qt plugins (`platforms\`, `styles\`, `imageformats\`, …) through `windeployqt` | `Pixelbridge` |
 
 `tst_gui` additionally gets `platforms\qoffscreen.dll`, because ctest runs it with `QT_QPA_PLATFORM=offscreen` and Qt looks for plugins beside the DLLs it loaded. To add a DLL for a new executable, call `qrs_copy_runtime_dlls(<target>)` after defining it.
 
@@ -40,7 +40,7 @@ Verified on the development machine on 2026-11-15. `python main.py env` prints t
 | Python | 3.13.15 | `D:\Apps\python` | tests, tools | tests only | no |
 | opencv-python-headless | 5.0.0 | Python site-packages | tests, benchmark | tests only | no |
 | numpy / pytest | 2.5.4 / 9.1.1 | Python site-packages | tests | tests only | no |
-| Git | 2.56 | `C:\Apps\Git\cmd` (on PATH) | â€” | no | no |
+| Git | 2.56 | `C:\Apps\Git\cmd` (on PATH) | — | no | no |
 
 Looked for and **not used**:
 
@@ -81,7 +81,7 @@ The root `CMakeLists.txt` defines:
 | `qrs_encode` | imported DLL | built by `cargo build --release --offline` into `build/rust` |
 | `qrs_core` | static C++ library | `gui/src/core/*.cpp` |
 | `qrs_app` | static C++ library | `gui/src/app/*.cpp` (listed in `gui/gui.cmake`) |
-| `QRStudio`, `qrs_cli` | executables | `gui/main/` |
+| `Pixelbridge`, `qrs_cli` | executables | `gui/main/` |
 | `tst_core`, `tst_files`, `tst_gui` | tests | `tests/cpp/` |
 
 ### Renaming the source folder
@@ -95,7 +95,7 @@ The folder name `gui` appears once, as the default of `QRS_SOURCE_DIR` in the ro
 | `[check] MISSING ...` | A tool is not where `build.bat` expects. Set the matching `QRS_*` variable. |
 | Link errors mentioning `__imp_` or `std::` symbols from Qt | The C++ code was compiled by MSYS2's GCC instead of Qt's. Run `build.bat clean` and build through `build.bat`, not a bare `cmake`. |
 | Rust step fails to link | The Rust linker must be the `gcc.exe` beside `cargo.exe`; CMake sets `CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER` for this. Check that MSYS2's `gcc` still exists there. |
-| `QRStudio.exe` from `build\bin` reports a missing DLL | Rebuild with `build.bat build`; the post-build step copies the DLLs. If a new library was linked, check that `qrs_copy_runtime_dlls` is called for that target. |
+| `Pixelbridge.exe` from `build\bin` reports a missing DLL | Rebuild with `build.bat build`; the post-build step copies the DLLs. If a new library was linked, check that `qrs_copy_runtime_dlls` is called for that target. |
 | A test fails with "could not find the Qt platform plugin" | The plugin is missing from `build\bin\platforms`. Offscreen tests need `qoffscreen.dll` (copied for `tst_gui`); see above. |
 | A newly added source file is not compiled | Add it to `gui/gui.cmake` (app) or the root `CMakeLists.txt` (core). Source lists are explicit. |
 | `windeployqt` warns about `dxcompiler.dll` | Harmless; Direct3D 12 is not used. |

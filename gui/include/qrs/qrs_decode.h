@@ -1,4 +1,4 @@
-/* QR Studio - C decoding core (wraps the vendored quirc library).
+/* Pixelbridge - C decoding core (wraps the vendored quirc library).
  *
  * Pure C, no Qt and no global state: safe to call from several threads at once
  * as long as each call uses its own output buffers.

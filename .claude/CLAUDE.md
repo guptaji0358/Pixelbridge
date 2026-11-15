@@ -1,4 +1,4 @@
-# QR Studio — instructions for Claude
+# Pixelbridge — instructions for Claude
 
 ## Project memory
 

@@ -58,7 +58,7 @@ QIcon MainWindow::appIcon()
 
 MainWindow::MainWindow(Settings *settings, QWidget *parent) : QMainWindow(parent), m_settings(settings)
 {
-    setWindowTitle(tr("QR Studio"));
+    setWindowTitle(tr("Pixelbridge"));
     setWindowIcon(appIcon());
     resize(1180, 760);
     setMinimumSize(920, 600);
@@ -74,7 +74,7 @@ MainWindow::MainWindow(Settings *settings, QWidget *parent) : QMainWindow(parent
     auto *side = new QVBoxLayout(sidebar);
     side->setContentsMargins(12, 16, 12, 12);
     side->setSpacing(4);
-    auto *brand = new QLabel(tr("QR Studio"));
+    auto *brand = new QLabel(tr("Pixelbridge"));
     brand->setObjectName("brand");
     side->addWidget(brand);
     m_nav = new QListWidget;

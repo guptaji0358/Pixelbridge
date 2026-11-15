@@ -1,4 +1,4 @@
-// qrs_cli - headless front end to the QR Studio core.
+// qrs_cli - headless front end to the Pixelbridge core.
 // Used by the automated tests, by batch scripts, and for benchmarking.
 //
 //   qrs_cli encode (--text T | --text-file F) --out FILE [--size N] [--margin N]

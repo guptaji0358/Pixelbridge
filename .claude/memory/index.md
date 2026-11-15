@@ -1,4 +1,4 @@
-# QR Studio — project memory index
+# Pixelbridge — project memory index
 
 Navigation entry point. Source code and `docs/` are authoritative; verify before relying on memory.
 

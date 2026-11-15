@@ -1,0 +1,21 @@
+[package]
+name = "qrs_encode"
+version = "0.1.0"
+edition = "2021"
+description = "QR Studio: dependency-free QR Code (Model 2) encoder with a C ABI"
+license = "MIT"
+publish = false
+
+[lib]
+# cdylib: consumed by the C++ application through gui/include/qrs/qrs_encode.h
+# rlib:   lets `cargo test` link the unit tests
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# Intentionally none: the build must work fully offline.
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

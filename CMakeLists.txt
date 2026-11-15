@@ -29,11 +29,11 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Core Gui Widgets Concurrent Test)
 
 # ------------------------------------------------- C: quirc (third party) ----
 add_library(quirc STATIC
-    third_party/quirc/quirc.c
-    third_party/quirc/decode.c
-    third_party/quirc/identify.c
-    third_party/quirc/version_db.c)
-target_include_directories(quirc PUBLIC third_party/quirc)
+    third_party/c/quirc/quirc.c
+    third_party/c/quirc/decode.c
+    third_party/c/quirc/identify.c
+    third_party/c/quirc/version_db.c)
+target_include_directories(quirc PUBLIC third_party/c/quirc)
 # Default of 254 regions is too low for photos and multi-code sheets.
 target_compile_definitions(quirc PUBLIC QUIRC_MAX_REGIONS=65534)
 if(CMAKE_C_COMPILER_ID STREQUAL "GNU")

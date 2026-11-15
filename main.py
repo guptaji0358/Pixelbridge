@@ -20,10 +20,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 CLI = ROOT / "build" / "bin" / "qrs_cli.exe"
-QT_DIR = Path(os.environ.get("QRS_QT_DIR", r"D:\Apps\Qt6\6.12.0\mingw_64"))
-MINGW_DIR = Path(os.environ.get("QRS_MINGW_DIR", r"D:\Apps\Qt6\Tools\mingw1310_64"))
-CMAKE_DIR = Path(os.environ.get("QRS_CMAKE_DIR", r"D:\Apps\Qt6\Tools\CMake_64\bin"))
-NINJA_DIR = Path(os.environ.get("QRS_NINJA_DIR", r"D:\Apps\Qt6\Tools\Ninja"))
+DEPS = ROOT / "deps"
+QT_DIR = Path(os.environ.get("QRS_QT_DIR", str(DEPS / "qt6" / "6.12.0" / "mingw_64")))
+MINGW_DIR = Path(os.environ.get("QRS_MINGW_DIR", str(DEPS / "qt6" / "Tools" / "mingw1310_64")))
+CMAKE_DIR = Path(os.environ.get("QRS_CMAKE_DIR", str(DEPS / "qt6" / "Tools" / "CMake_64" / "bin")))
+NINJA_DIR = Path(os.environ.get("QRS_NINJA_DIR", str(DEPS / "qt6" / "Tools" / "Ninja")))
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp", ".tif", ".tiff"}
 
 
@@ -79,7 +80,7 @@ def cmd_env(_: argparse.Namespace) -> int:
         except ImportError:
             items.append({"name": f"python:{module}", "required": False, "role": role, "available": False,
                           "path": None, "version": None})
-    vendored = ROOT / "third_party" / "quirc" / "quirc.h"
+    vendored = ROOT / "third_party" / "c" / "quirc" / "quirc.h"
     items.append({"name": "quirc (vendored)", "required": True, "role": "QR decoding (C)",
                   "available": vendored.exists(), "path": str(vendored.parent), "version": "source in tree"})
     print(json.dumps(items, indent=2))

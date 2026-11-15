@@ -46,7 +46,7 @@ gui/
   src/app/            Qt Widgets pages
   main/               main.cpp (QRStudio.exe), qrs_cli.cpp
 rust/qrs_encode/      QR encoder (Rust, C ABI DLL)
-third_party/quirc/    QR decoder library (C, ISC licence)
+third_party/c/quirc/    QR decoder library (C, ISC licence)
 tools/windows/        context_menu.ps1
 tests/cpp/            Qt Test suites
 tests/python/         pytest: OpenCV interop, Windows environment
@@ -62,4 +62,4 @@ docs/                 architecture, build, testing, context menu
 
 ## Licences
 
-quirc is ISC-licensed (`third_party/quirc/LICENSE`). Qt is used under the LGPL and linked dynamically.
+quirc is ISC-licensed (`third_party/c/quirc/LICENSE`). Qt is used under the LGPL and linked dynamically.

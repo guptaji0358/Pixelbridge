@@ -11,7 +11,7 @@
 | `gui/src/app/` | `MainWindow`, `ScannerPage`, `GeneratorPage` (+`GeneratorPageActions.cpp`), `FilesPage` (+`FilesPageActions.cpp`, `FileTableModel.cpp`), `BatchPage`, `SettingsPage`, `Theme`, `Widgets`, `Actions`, `AppSettings` |
 | `gui/main/` | `main.cpp` (GUI + command-line options), `qrs_cli.cpp` |
 | `rust/qrs_encode/src/` | `lib.rs` (encode + C ABI), `segment.rs`, `matrix.rs`, `reed_solomon.rs`, `tables.rs` |
-| `third_party/quirc/` | Vendored decoder; do not edit |
+| `third_party/c/quirc/` | Vendored decoder; do not edit |
 | `tools/windows/context_menu.ps1` | HKCU-only right-click installer (`status` / `install` / `uninstall`, `-DryRun`) |
 | `tests/cpp/`, `tests/python/` | Qt Test and pytest suites |
 | `build.bat`, `main.py` | Build driver; dev tools (`env`, `fixtures`, `benchmark`) |
@@ -29,9 +29,9 @@ before session 1.
 
 ## Toolchain (verified)
 
-- Qt 6.12.0 MinGW kit `D:\Apps\Qt6\6.12.0\mingw_64`; compiler `D:\Apps\Qt6\Tools\mingw1310_64`
-  (GCC 13.1, msvcrt); CMake `D:\Apps\Qt6\Tools\CMake_64\bin`; Ninja `D:\Apps\Qt6\Tools\Ninja`.
-- Rust 1.96.1 from MSYS2 at `D:\Apps\msy32\ucrt64\bin` (target `x86_64-pc-windows-gnu`, UCRT).
+- Qt 6.12.0 MinGW kit `deps\qt6\6.12.0\mingw_64`; compiler `deps\qt6\Tools\mingw1310_64`
+  (GCC 13.1, msvcrt); CMake `deps\qt6\Tools\CMake_64\bin`; Ninja `deps\qt6\Tools\Ninja`.
+- Rust 1.96.1 from MSYS2 at `deps\msys2\ucrt64\bin` (target `x86_64-pc-windows-gnu`, UCRT).
 - Python 3.13 at `D:\Apps\python` with OpenCV 5.0 (headless), numpy, pytest.
 - No MSVC compiler, no vcpkg. Full table in `docs/build.md`.
 

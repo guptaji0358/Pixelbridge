@@ -20,10 +20,12 @@ if "%ROOT:~-1%"=="\" set "ROOT=%ROOT:~0,-1%"
 set "BUILD_DIR=%ROOT%\build"
 set "DIST_DIR=%ROOT%\dist"
 
-if not defined QRS_QT_DIR    set "QRS_QT_DIR=D:\Apps\Qt6\6.12.0\mingw_64"
-if not defined QRS_MINGW_DIR set "QRS_MINGW_DIR=D:\Apps\Qt6\Tools\mingw1310_64"
-if not defined QRS_CMAKE_DIR set "QRS_CMAKE_DIR=D:\Apps\Qt6\Tools\CMake_64\bin"
-if not defined QRS_NINJA_DIR set "QRS_NINJA_DIR=D:\Apps\Qt6\Tools\Ninja"
+rem Tool installs live under deps\ (git-ignored); see docs\build.md.
+set "DEPS_DIR=%ROOT%\deps"
+if not defined QRS_QT_DIR    set "QRS_QT_DIR=%DEPS_DIR%\qt6\6.12.0\mingw_64"
+if not defined QRS_MINGW_DIR set "QRS_MINGW_DIR=%DEPS_DIR%\qt6\Tools\mingw1310_64"
+if not defined QRS_CMAKE_DIR set "QRS_CMAKE_DIR=%DEPS_DIR%\qt6\Tools\CMake_64\bin"
+if not defined QRS_NINJA_DIR set "QRS_NINJA_DIR=%DEPS_DIR%\qt6\Tools\Ninja"
 if not defined QRS_PYTHON    set "QRS_PYTHON=python"
 
 set "ACTION=%~1"

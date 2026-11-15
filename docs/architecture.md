@@ -17,7 +17,7 @@ QR Studio is a local, offline Windows desktop application. Nothing in it opens a
         │   gui/src/core/qrs_decode.c, qrs_preprocess.c  (C)  "qrs_decode"
         │          │
         │          ▼
-        │   third_party/quirc  (C, vendored, ISC licence)
+        │   third_party/c/quirc  (C, vendored, ISC licence)
         ▼
  rust/qrs_encode  (Rust, no crates)  →  qrs_encode.dll, C ABI
 ```

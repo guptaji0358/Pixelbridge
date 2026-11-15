@@ -1,9 +1,9 @@
-# Build, environment and packaging
+﻿# Build, environment and packaging
 
 ## Quick start
 
 ```bat
-build.bat            configure + compile → build\bin\QRStudio.exe
+build.bat            configure + compile â†’ build\bin\QRStudio.exe
 build.bat test       compile, then run Rust, C++ and Python tests
 build.bat deploy     compile, then create a self-contained dist\ folder
 build.bat all        build + test + deploy
@@ -21,20 +21,9 @@ build.bat clean      delete build\ and dist\
 | Function | Copies | Used for |
 |---|---|---|
 | `qrs_copy_runtime_dlls(<target>)` | `qrs_encode.dll` and the Qt DLLs the target links (via `$<TARGET_RUNTIME_DLLS>`), plus `libgcc_s_seh-1.dll`, `libstdc++-6.dll`, `libwinpthread-1.dll` from the compiler's folder | `qrs_cli`, `QRStudio`, every test |
-| `qrs_deploy_qt_plugins(<target>)` | Qt plugins (`platforms\`, `styles\`, `imageformats\`, …) through `windeployqt` | `QRStudio` |
+| `qrs_deploy_qt_plugins(<target>)` | Qt plugins (`platforms\`, `styles\`, `imageformats\`, â€¦) through `windeployqt` | `QRStudio` |
 
 `tst_gui` additionally gets `platforms\qoffscreen.dll`, because ctest runs it with `QT_QPA_PLATFORM=offscreen` and Qt looks for plugins beside the DLLs it loaded. To add a DLL for a new executable, call `qrs_copy_runtime_dlls(<target>)` after defining it.
-
-## Dependency layout
-
-```
-third_party\c\quirc\   vendored C source (tracked in git)
-deps\                  tool installs (git-ignored)
-  qt6\                 Qt 6.12.0 + MinGW, CMake, Ninja   (junction D:\Apps\Qt6 points here)
-  msys2\               Rust/cargo + MSYS2 linker         (junction D:\Apps\msy32 points here)
-```
-
-The old `D:\Apps\...` paths still work through the junctions, so PATH entries and other projects are unaffected. Python (`D:\Apps\python`) was **not** moved: VS Code Jupyter kernels were using it. Close them, move it to `deps\python`, leave a junction, and update `QRS_PYTHON` if wanted.
 
 ## Dependency inventory
 
@@ -42,23 +31,23 @@ Verified on the development machine on 2026-11-15. `python main.py env` prints t
 
 | Dependency | Version | Location | Used from | Required | Needs installing |
 |---|---|---|---|---|---|
-| Qt (MinGW 64-bit kit) | 6.12.0 | `deps\qt6\6.12.0\mingw_64` | C++ | yes | no |
-| MinGW-w64 GCC (Qt's) | 13.1.0, msvcrt | `deps\qt6\Tools\mingw1310_64` | C, C++ | yes | no |
-| CMake | Qt-bundled | `deps\qt6\Tools\CMake_64\bin` | build | yes | no |
-| Ninja | Qt-bundled | `deps\qt6\Tools\Ninja` | build | yes | no |
-| Rust / cargo | 1.96.1 (MSYS2, `x86_64-pc-windows-gnu`) | `deps\msys2\ucrt64\bin` (junction `D:\Apps\msy32`) | Rust | yes | no |
+| Qt (MinGW 64-bit kit) | 6.12.0 | `D:\Apps\Qt6\6.12.0\mingw_64` | C++ | yes | no |
+| MinGW-w64 GCC (Qt's) | 13.1.0, msvcrt | `D:\Apps\Qt6\Tools\mingw1310_64` | C, C++ | yes | no |
+| CMake | Qt-bundled | `D:\Apps\Qt6\Tools\CMake_64\bin` | build | yes | no |
+| Ninja | Qt-bundled | `D:\Apps\Qt6\Tools\Ninja` | build | yes | no |
+| Rust / cargo | 1.100.0 (MSYS2, `x86_64-pc-windows-gnu`) | `D:\Apps\msy32\ucrt64\bin` | Rust | yes | no |
 | quirc | vendored source | `third_party\c\quirc` | C | yes | no |
 | Python | 3.13.15 | `D:\Apps\python` | tests, tools | tests only | no |
 | opencv-python-headless | 5.0.0 | Python site-packages | tests, benchmark | tests only | no |
 | numpy / pytest | 2.5.4 / 9.1.1 | Python site-packages | tests | tests only | no |
-| Git | 2.56 | `C:\Apps\Git\cmd` (on PATH) | — | no | no |
+| Git | 2.56 | `C:\Apps\Git\cmd` (on PATH) | â€” | no | no |
 
 Looked for and **not used**:
 
 | Item | Finding |
 |---|---|
 | MSVC compiler | Not installed. `D:\Apps\Microsoft Visual Studio Community` contains only the IDE; there is no `VC\Tools\MSVC`. The Qt `msvc2022_64` kit therefore cannot be used. |
-| MSYS2 GCC 16.1 | Installed at `deps\msys2\ucrt64\bin` and earlier on `PATH` than Qt's compiler. It must **not** compile the C++ code (different runtime from the Qt kit); `build.bat` puts Qt's MinGW first. It is used only as the linker for the Rust DLL. |
+| MSYS2 GCC 16.1 | Installed at `D:\Apps\msy32\ucrt64\bin` and earlier on `PATH` than Qt's compiler. It must **not** compile the C++ code (different runtime from the Qt kit); `build.bat` puts Qt's MinGW first. It is used only as the linker for the Rust DLL. |
 | Second Rust install | `D:\Library\cargo` + `D:\Library\rustup` (MSVC toolchain) exists but is not on `PATH` and cannot link without MSVC. |
 | vcpkg | Not found. |
 | Conan | 2.34.0 installed; not needed. |
@@ -72,10 +61,10 @@ No drive was scanned recursively to produce this table: it comes from `PATH`, en
 Set any of these before calling `build.bat`:
 
 ```bat
-set QRS_QT_DIR=%CD%\deps\qt6\6.12.0\mingw_64
-set QRS_MINGW_DIR=%CD%\deps\qt6\Tools\mingw1310_64
-set QRS_CMAKE_DIR=%CD%\deps\qt6\Tools\CMake_64\bin
-set QRS_NINJA_DIR=%CD%\deps\qt6\Tools\Ninja
+set QRS_QT_DIR=D:\Apps\Qt6\6.12.0\mingw_64
+set QRS_MINGW_DIR=D:\Apps\Qt6\Tools\mingw1310_64
+set QRS_CMAKE_DIR=D:\Apps\Qt6\Tools\CMake_64\bin
+set QRS_NINJA_DIR=D:\Apps\Qt6\Tools\Ninja
 set QRS_PYTHON=python
 ```
 

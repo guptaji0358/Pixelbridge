@@ -16,8 +16,8 @@ ROOT = Path(__file__).resolve().parents[2]
 CLI = ROOT / "build" / "bin" / "qrs_cli.exe"
 
 # Same defaults as build.bat; build.bat exports the variables when it runs pytest.
-QT_DIR = Path(os.environ.get("QRS_QT_DIR", str(ROOT / "deps" / "qt6" / "6.12.0" / "mingw_64")))
-MINGW_DIR = Path(os.environ.get("QRS_MINGW_DIR", str(ROOT / "deps" / "qt6" / "Tools" / "mingw1310_64")))
+QT_DIR = Path(os.environ.get("QRS_QT_DIR", r"D:\Apps\Qt6\6.12.0\mingw_64"))
+MINGW_DIR = Path(os.environ.get("QRS_MINGW_DIR", r"D:\Apps\Qt6\Tools\mingw1310_64"))
 
 
 def _env() -> dict[str, str]:

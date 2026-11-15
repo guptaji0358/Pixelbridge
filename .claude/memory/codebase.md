@@ -1,4 +1,4 @@
-# Codebase map and toolchain facts
+﻿# Codebase map and toolchain facts
 
 ## Where things are
 
@@ -21,17 +21,17 @@ before session 1.
 
 ## Language boundaries
 
-- Rust → C++: `qrs_encode()` in `qrs_encode.dll`. Caller-owned buffer, one byte per module.
+- Rust â†’ C++: `qrs_encode()` in `qrs_encode.dll`. Caller-owned buffer, one byte per module.
   Keep `gui/include/qrs/qrs_encode.h` in sync with `lib.rs` by hand; `QRS_ENCODE_ABI_VERSION`
   is checked by `tst_core`.
-- C → C++: `qrs_decode_gray()`; `qrs_result` is ~9 KB each, allocated on the heap in `Scanner.cpp`.
-- C++ → Python: only through `qrs_cli.exe` (JSON lines on stdout). Python is never embedded.
+- C â†’ C++: `qrs_decode_gray()`; `qrs_result` is ~9 KB each, allocated on the heap in `Scanner.cpp`.
+- C++ â†’ Python: only through `qrs_cli.exe` (JSON lines on stdout). Python is never embedded.
 
 ## Toolchain (verified)
 
-- Qt 6.12.0 MinGW kit `deps\qt6\6.12.0\mingw_64`; compiler `deps\qt6\Tools\mingw1310_64`
-  (GCC 13.1, msvcrt); CMake `deps\qt6\Tools\CMake_64\bin`; Ninja `deps\qt6\Tools\Ninja`.
-- Rust 1.96.1 from MSYS2 at `deps\msys2\ucrt64\bin` (target `x86_64-pc-windows-gnu`, UCRT).
+- Qt 6.12.0 MinGW kit `D:\Apps\Qt6\6.12.0\mingw_64`; compiler `D:\Apps\Qt6\Tools\mingw1310_64`
+  (GCC 13.1, msvcrt); CMake `D:\Apps\Qt6\Tools\CMake_64\bin`; Ninja `D:\Apps\Qt6\Tools\Ninja`.
+- Rust 1.100.0 from MSYS2 at `D:\Apps\msy32\ucrt64\bin` (target `x86_64-pc-windows-gnu`, UCRT).
 - Python 3.13 at `D:\Apps\python` with OpenCV 5.0 (headless), numpy, pytest.
 - No MSVC compiler, no vcpkg. Full table in `docs/build.md`.
 

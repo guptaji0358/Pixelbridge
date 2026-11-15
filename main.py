@@ -20,11 +20,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 CLI = ROOT / "build" / "bin" / "qrs_cli.exe"
-DEPS = ROOT / "deps"
-QT_DIR = Path(os.environ.get("QRS_QT_DIR", str(DEPS / "qt6" / "6.12.0" / "mingw_64")))
-MINGW_DIR = Path(os.environ.get("QRS_MINGW_DIR", str(DEPS / "qt6" / "Tools" / "mingw1310_64")))
-CMAKE_DIR = Path(os.environ.get("QRS_CMAKE_DIR", str(DEPS / "qt6" / "Tools" / "CMake_64" / "bin")))
-NINJA_DIR = Path(os.environ.get("QRS_NINJA_DIR", str(DEPS / "qt6" / "Tools" / "Ninja")))
+QT_DIR = Path(os.environ.get("QRS_QT_DIR", r"D:\Apps\Qt6\6.12.0\mingw_64"))
+MINGW_DIR = Path(os.environ.get("QRS_MINGW_DIR", r"D:\Apps\Qt6\Tools\mingw1310_64"))
+CMAKE_DIR = Path(os.environ.get("QRS_CMAKE_DIR", r"D:\Apps\Qt6\Tools\CMake_64\bin"))
+NINJA_DIR = Path(os.environ.get("QRS_NINJA_DIR", r"D:\Apps\Qt6\Tools\Ninja"))
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp", ".tif", ".tiff"}
 
 

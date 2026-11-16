@@ -11,6 +11,8 @@ Last updated 2026-11-16. Nothing has been committed to git yet.
 - Context-menu script: `status` and `install -DryRun` verified; registry confirmed unchanged.
 - LIAS v0.1: the isolated suite passes (4 tests). SQLite FTS5 knowledge storage, secret
   rejection, the safe Tier-0 registry/runner, diagnostics, and `source-statistics` work.
+- LIAS now also has 12 safe, report-first maintenance automations (repository, cache,
+  memory, docs, build, context-menu, release, candidate, quarantine, and benchmark checks).
 
 ## Not verified / waiting on the user
 

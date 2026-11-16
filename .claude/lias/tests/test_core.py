@@ -51,6 +51,11 @@ class LiasCoreTests(unittest.TestCase):
         self.assertEqual("success", result["status"])
         self.assertTrue(json.loads(result["result"]["stdout"])["ok"])
 
+    def test_bootstrap_registers_local_maintenance_reports(self) -> None:
+        core.bootstrap()
+        ids = {item["id"] for item in core.list_automations()}
+        self.assertTrue({"source-statistics", "repository-health", "cmake-cache-doctor", "memory-audit", "release-readiness", "failure-quarantine"} <= ids)
+
 
 if __name__ == "__main__":
     unittest.main()

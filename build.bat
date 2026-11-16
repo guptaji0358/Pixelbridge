@@ -126,6 +126,9 @@ if defined HAVE_PYTHON (
     echo [test] Python interop tests ^(pytest^)...
     "%QRS_PYTHON%" -m pytest "%ROOT%\tests\python" -q -p no:cacheprovider
     if errorlevel 1 set "FAILED=%FAILED% python"
+    echo [test] LIAS unit tests...
+    "%QRS_PYTHON%" -m unittest discover -s "%ROOT%\.claude\lias\tests" -p "test_*.py" -q
+    if errorlevel 1 set "FAILED=%FAILED% lias"
 ) else (
     echo [test] SKIPPED Python tests - no interpreter
 )

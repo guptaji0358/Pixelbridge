@@ -157,6 +157,10 @@ def bootstrap() -> None:
     script = LIAS / "automation" / "scripts" / "source_stats.py"
     register_automation({"id": "source-statistics", "name": "Source statistics", "description": "Counts project source files and lines.",
         "command": [sys.executable, str(script)], "working_directory": ".", "timeout_seconds": 20, "risk_tier": 0, "version": "1"})
+    maintenance = LIAS / "automation" / "scripts" / "maintenance.py"
+    names = ("repository-health", "cmake-cache-doctor", "test-result-summary", "memory-audit", "docs-link-check", "build-config-audit", "context-menu-audit", "release-readiness", "knowledge-candidate-scan", "automation-candidate-score", "failure-quarantine", "benchmark-history")
+    for name in names:
+        register_automation({"id": name, "name": name.replace("-", " ").title(), "description": f"Local report for {name}.", "command": [sys.executable, str(maintenance), name], "working_directory": ".", "timeout_seconds": 20, "risk_tier": 0, "version": "1"})
 
 
 def list_automations() -> list[dict[str, Any]]:

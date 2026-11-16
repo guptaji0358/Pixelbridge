@@ -18,6 +18,18 @@ python .claude/lias/cli.py automation run source-statistics
 automation is an argument array, has a project-root working directory and bounded
 timeout, and is checked against the project-local registry before execution.
 
+It also registers local report automations for repository health, CMake-cache
+diagnosis, test-result status, memory and documentation checks, build-configuration
+checks, context-menu drift, release readiness, knowledge and automation candidates,
+failure quarantine proposals, and benchmark-history status. Run any one with:
+
+```powershell
+python .claude/lias/cli.py automation run repository-health
+```
+
+Candidate, quarantine, and benchmark reports never make changes by themselves;
+they require a subsequent reviewed action.
+
 Knowledge is explicitly marked `verified` or `unverified`. LIAS rejects likely
 secrets and never treats unverified facts as confirmed. SQLite FTS5 provides local
 keyword retrieval; there is no external embedding service.

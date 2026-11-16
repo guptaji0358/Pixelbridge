@@ -1,6 +1,6 @@
 # Status and open work
 
-Last updated 2026-11-15 (end of session 1). Nothing has been committed to git yet.
+Last updated 2026-11-16. Nothing has been committed to git yet.
 
 ## Verified working
 
@@ -9,6 +9,8 @@ Last updated 2026-11-15 (end of session 1). Nothing has been committed to git ye
 - `dist\Pixelbridge.exe` and `dist\qrs_cli.exe` run with only `C:\WINDOWS\system32` on PATH.
 - UI reviewed from screenshots in light and dark themes (`build\screenshots\`).
 - Context-menu script: `status` and `install -DryRun` verified; registry confirmed unchanged.
+- LIAS v0.1: the isolated suite passes (4 tests). SQLite FTS5 knowledge storage, secret
+  rejection, the safe Tier-0 registry/runner, diagnostics, and `source-statistics` work.
 
 ## Not verified / waiting on the user
 
@@ -28,8 +30,8 @@ Last updated 2026-11-15 (end of session 1). Nothing has been committed to git ye
 3. Batch page: move the folder listing off the UI thread (currently synchronous in `startFolder`).
 4. Spin-box text sits too close to the left edge (QSS padding is not reaching the inner line edit).
 5. Optional: installer; multi-segment encoding for smaller codes; camera input.
-6. LIAS runtime (`.claude/lias/`) is not installed. Local automation so far is `build.bat` and
-   `main.py`. Install the full system only if the user asks for it.
+6. The full `build.bat test` command is blocked by a stale `build/CMakeCache.txt` referring to
+   `D:/Apps/MyApps/Pendiing/QR`. Resolving it requires destructive `build.bat clean` approval.
 
 ## Known bugs
 

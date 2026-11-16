@@ -4,3 +4,9 @@ build.configure.log
 __pycache__/
 .pytest_cache/
 *.pyc
+.claude/lias/config/
+.claude/lias/database/
+.claude/lias/cache/
+.claude/lias/logs/
+.claude/lias/backups/
+.claude/lias/benchmarks/
